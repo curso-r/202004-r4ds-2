@@ -1,0 +1,20 @@
+Package: r4ds2
+Title: Curso de R Para Ciencia De Dados Parte 2
+Version: 0.0.0.9000
+Authors@R: 
+    person(given = "Julio",
+           family = "Trecenti",
+           role = c("aut", "cre"),
+           email = "jtrecenti@curso-r.com",
+           comment = c(ORCID = "0000-0002-1680-6389"))
+Description: Material do curso de programacao em R ministrado 
+  online para alunos interessados em Ciencia de Dados. O curso
+  foi organizado dentro de um pacote, para que o aluno tenha a 
+  experiencia de trabalhar nesse formato de repositorio.
+License: GPL-3
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.0
+Imports: 
+    magrittr
