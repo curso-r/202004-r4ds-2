@@ -18,3 +18,5 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.0
 Imports: 
     magrittr
+URL: https://github.com/curso-r/r4ds2
+BugReports: https://github.com/curso-r/r4ds2/issues
