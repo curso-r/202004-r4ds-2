@@ -707,13 +707,11 @@ Siga os passos e não se esqueça de configurar seu usuário com `use_git_config
 
 - Os scripts de exercícios estarão na pasta `data-raw/`
 
--- 
+--
 
-- O gabaritos serão adicionados (provavelmente) na pasta `R/`
-
+- Os gabaritos serão adicionados (provavelmente) na pasta `R/`
 
 ---
-
 class: inverse, middle
 
 # Obrigado!
