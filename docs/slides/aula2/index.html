@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>R para Ciência de Dados</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="" />
+    <link rel="stylesheet" href="css/xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# R para Ciência de Dados
+## Parte II - Aula 2
+### <img src = 'https://d33wubrfki0l68.cloudfront.net/9b0699f18268059bdd2e5c21538a29eade7cbd2b/67e5c/img/logo/cursor1-5.png' width = '20%'>
+### Abril, 2020
+
+---
+
+
+
+
+&lt;!-- ----------------------------------------------------------------------- --&gt;
+
+# Submissão de exercícios
+
+1. Utilização do Google Classroom.
+2. Exercícios envolvem upload de arquivos.
+3. Vamos checar os resultados durante a aula sempre que possível.
+4. Ao final de cada exercício, o gabarito será disponibilizado.
+
+---
+
+# Última vez
+
+📌 __Ambientação ao Git e Github__
+
+📌 Manipulação avançada de dados
+
+📌 Introdução à programação funcional
+
+📌 Visualização avançada de dados
+
+📌 Criação de pacotes
+
+📌 Comunicação de resultados com dashboards (Shiny)
+
+---
+
+# Hoje
+
+📌 Ambientação ao Git e Github
+
+📌 __Manipulação avançada de dados__
+
+📌 Introdução à programação funcional
+
+📌 Visualização avançada de dados
+
+📌 Criação de pacotes
+
+📌 Comunicação de resultados com dashboards (Shiny)
+
+---
+
+# Primeiro passo
+
+- Baixe o arquivo zip que está no Mural do Classroom e dezipe
+
+&lt;img src="img/material_aula.png" width="70%" style="display: block; margin: auto;" /&gt;
+
+
+- Se estiver confiante, você pode clonar o repositório do GitHub 😄
+- Abra o projeto (arquivo `.Rproj`) no RStudio
+
+---
+
+# Exercícios de hoje
+
+
+.pull-left[
+
+### Importação com `readr::`, `readxl::`
+
+- Base do SINESP
+
+### Revisão dplyr: pipe e 5 verbos
+
+- Base do SINESP
+
+]
+
+--
+
+.pull-right[
+
+### Banco de dados: `dplyr::` collect, postgres
+
+- Base de dados da RFB
+
+### Pivotagem: `tidyr::`
+
+- ?
+
+]
+
+
+---
+
+# Taxonomia
+
+## ↪️ `{pacote}`
+
+--
+
+## ↪️ `pacote::funcao()` ou `funcao()`
+
+--
+
+## ↪️ `da_` para bases de dados
+
+---
+class: inverse, middle, center
+
+# Importação
+
+---
+
+## O ciclo da ciência de dados
+
+&lt;img src="img/ciclo-ciencia-de-dados.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+---
+
+## O ciclo da ciência de dados com o R
+
+&lt;img src="img/ciclo-ciencia-de-dados-pacotes.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+---
+
+# O que é importação
+
+### Carregar uma base de dados numa `tibble` dentro do R.
+
+--
+
+- Pode ser um arquivo `.csv` ou `.xlsx`.
+
+--
+
+- Pode ser um banco de dados local ou na nuvem.
+
+--
+
+- Pode ser um conjunto de arquivos `.html` brutos.
+
+--
+
+...e muito mais
+
+---
+
+# Tibble
+
+- É o mesmo que um `data.frame()`
+- Possui propriedades mais legais e imprime mais bonito.
+
+
+```r
+*tibble::as_tibble(mtcars)
+```
+
+```
+#&gt; # A tibble: 32 x 11
+#&gt;      mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb
+#&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+#&gt;  1  21       6  160    110  3.9   2.62  16.5     0     1     4     4
+#&gt;  2  21       6  160    110  3.9   2.88  17.0     0     1     4     4
+#&gt;  3  22.8     4  108     93  3.85  2.32  18.6     1     1     4     1
+#&gt;  4  21.4     6  258    110  3.08  3.22  19.4     1     0     3     1
+#&gt;  5  18.7     8  360    175  3.15  3.44  17.0     0     0     3     2
+#&gt;  6  18.1     6  225    105  2.76  3.46  20.2     1     0     3     1
+#&gt;  7  14.3     8  360    245  3.21  3.57  15.8     0     0     3     4
+#&gt;  8  24.4     4  147.    62  3.69  3.19  20       1     0     4     2
+#&gt;  9  22.8     4  141.    95  3.92  3.15  22.9     1     0     4     2
+#&gt; 10  19.2     6  168.   123  3.92  3.44  18.3     1     0     4     4
+#&gt; # … with 22 more rows
+```
+
+---
+
+# Glimpse
+
+- É o mesmo que `str()`, mas mais bonito e informativo.
+
+
+```r
+*tibble::glimpse(mtcars)
+```
+
+```
+#&gt; Rows: 32
+#&gt; Columns: 11
+#&gt; $ mpg  &lt;dbl&gt; 21.0, 21.0, 22.8, 21.4, 18.7, 18.1, 14.3, 24.4, 22.8, 19.2, 17.8…
+#&gt; $ cyl  &lt;dbl&gt; 6, 6, 4, 6, 8, 6, 8, 4, 4, 6, 6, 8, 8, 8, 8, 8, 8, 4, 4, 4, 4, 8…
+#&gt; $ disp &lt;dbl&gt; 160.0, 160.0, 108.0, 258.0, 360.0, 225.0, 360.0, 146.7, 140.8, 1…
+#&gt; $ hp   &lt;dbl&gt; 110, 110, 93, 110, 175, 105, 245, 62, 95, 123, 123, 180, 180, 18…
+#&gt; $ drat &lt;dbl&gt; 3.90, 3.90, 3.85, 3.08, 3.15, 2.76, 3.21, 3.69, 3.92, 3.92, 3.92…
+#&gt; $ wt   &lt;dbl&gt; 2.620, 2.875, 2.320, 3.215, 3.440, 3.460, 3.570, 3.190, 3.150, 3…
+#&gt; $ qsec &lt;dbl&gt; 16.46, 17.02, 18.61, 19.44, 17.02, 20.22, 15.84, 20.00, 22.90, 1…
+#&gt; $ vs   &lt;dbl&gt; 0, 0, 1, 1, 0, 1, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0…
+#&gt; $ am   &lt;dbl&gt; 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0…
+#&gt; $ gear &lt;dbl&gt; 4, 4, 4, 3, 3, 3, 3, 4, 4, 4, 4, 3, 3, 3, 3, 3, 3, 4, 4, 4, 3, 3…
+#&gt; $ carb &lt;dbl&gt; 4, 4, 1, 1, 2, 1, 4, 2, 2, 4, 4, 3, 3, 3, 4, 4, 4, 1, 2, 1, 1, 2…
+```
+
+---
+
+# Pacotes de importação de dados
+
+- Arquivos de texto: `readr`, `data.table::fread()`, `vroom::vroom()`
+
+--
+
+- Arquivos estruturados, como `xlsx` e `json`: `readxl`, `jsonlite`
+
+--
+
+- Banco de dados: `DBI`, `odbc` e pacotes específicos
+
+--
+
+- HTML e XML: `xml2`
+
+---
+class: center
+
+# Vamos ao R!
+
+&lt;img src="img/gato.gif" width="80%" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Exercício
+
+1. Vá até a página [dados.gov.br](https://dados.gov.br) e pesquise pela base do SINESP.
+2. Baixe o arquivo do SINESP, como vimos, salvando no local apropriado.
+3. Leia todas as bases numa lista.
+    - __Dica__: utilize `purrr::map()` e `readxl::excel_sheets()`
+4. Empilhe a base.
+    - __Dica__: utilize a função `dplyr::bind_rows()`
+
+---
+
+# Extra: pacote {vroom}
+
+.pull-left[
+
+- Se precisar carregar bases maiores, considere o pacote `{vroom}`.
+- Ele carrega tudo num piscar de olhos, pois processa os somente somente quando você usa.
+
+]
+
+.pull-right[
+
+&lt;img src="img/vroom.png" width="100%" style="display: block; margin: auto;" /&gt;
+^
+]
+
+---
+
+# Extra: pacote {ckanr}
+
+- O pacote `{ckanr}` permite baixar dados de sites do tipo CKAN direto para o R.
+
+Exemplo:
+
+
+```r
+library(ckanr)
+ckanr_setup("http://dados.gov.br")
+pacote &lt;- ckanr::package_search("SINESP")$results[[1]]
+pacote
+```
+
+    &lt;CKAN Package&gt; 210b9ae2-21fc-4986-89c6-2006eb4db247 
+      Title: Ocorrências Criminais - Sinesp
+      Creator/Modified: 2019-01-26T00:30:09.272398 / 2020-04-16T13:24:22.446329
+      Resources (up to 5): Dicionário de Dados, Dados Nacionais de 
+      Segurança Pública - Municípios, Dados Nacionais de Segurança Pública - UF
+      Tags (up to 5): DGI, DNSP, Dados Nacionais de Segurança Pública, 
+      Dados Oficiais, senasp
+      Groups (up to 5):
+
+---
+
+# Extra: pacote {ckanr}
+
+
+```r
+download.file(pacote$resources[[2]]$url, "sinesp.xlsx")
+readxl::read_excel("sinesp.xlsx")
+```
+
+    # A tibble: 258 x 5                                                                            
+       Município        `Sigla UF` Região `Mês/Ano`           Vítima
+       &lt;chr&gt;            &lt;chr&gt;      &lt;chr&gt;  &lt;dttm&gt;               &lt;dbl&gt;
+     1 Bujari           AC         NORTE  2018-01-01 00:00:00      1
+     2 Cruzeiro do Sul  AC         NORTE  2018-01-01 00:00:00      8
+     3 Feijó            AC         NORTE  2018-01-01 00:00:00      3
+     4 Jordão           AC         NORTE  2018-01-01 00:00:00      1
+     5 Mâncio Lima      AC         NORTE  2018-01-01 00:00:00      1
+     6 Rio Branco       AC         NORTE  2018-01-01 00:00:00     31
+     7 Rodrigues Alves  AC         NORTE  2018-01-01 00:00:00      2
+     8 Sena Madureira   AC         NORTE  2018-01-01 00:00:00      1
+     9 Senador Guiomard AC         NORTE  2018-01-01 00:00:00      1
+    10 Tarauacá         AC         NORTE  2018-01-01 00:00:00      1
+    # … with 248 more rows
+
+&lt;!-- Parte 1---------------------------------------------------------------- --&gt;
+
+---
+class: inverse, middle, center
+
+# Revisão dplyr
+
+&lt;!-- Parte 2---------------------------------------------------------------- --&gt;
+
+
+---
+class: inverse, middle, center
+
+# Bancos de dados
+
+
+&lt;!-- Parte 3---------------------------------------------------------------- --&gt;
+
+---
+class: inverse, middle, center
+
+# Pivotagem
+
+&lt;!-- Parte 4---------------------------------------------------------------- --&gt;
+
+---
+class: inverse, middle
+
+# Obrigado!
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "16:9",
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

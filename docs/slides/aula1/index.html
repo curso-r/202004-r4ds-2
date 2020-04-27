@@ -7,6 +7,7 @@
     <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link href="libs/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
     <link rel="stylesheet" href="css/custom-intro.css" type="text/css" />
+    <link rel="stylesheet" href="css/xaringan-themer.css" type="text/css" />
   </head>
   <body>
     <textarea id="source">
@@ -23,7 +24,7 @@ class: center, middle, inverse, title-slide
 
 # Sobre a Curso-R
 
-&lt;img src="img/professores.png" width="2235" style="display: block; margin: auto;" /&gt;
+&lt;img src="img/professores.png" width="70%" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -35,7 +36,7 @@ class: center, middle, inverse, title-slide
 
 # Nossos cursos
 
-&lt;img src="img/cursos.png" width="2559" style="display: block; margin: auto;" /&gt;
+&lt;img src="img/cursos.png" width="80%" style="display: block; margin: auto;" /&gt;
 
 ---
 class: center, inverse, middle
@@ -245,26 +246,30 @@ class: center, inverse, middle
 
 - [Zen do R](https://curso-r.github.io/zen-do-r/), livro em desenvolvimento pela Curso-R.
 
+--
+
+- [Apresentação da Bea Milz](https://beatrizmilz.github.io/RLadies-Git-RStudio-2019)
+
 
 ---
 
 # Estrutura básica de um pacote
 
-### Essenciais:
+#### Essenciais:
 
 - `DESCRIPTION`: É o arquivo que define o nome do seu pacote
 - `R/`: Aqui ficam suas funções desenvolvidas em R.
 
 --
 
-### Dados:
+#### Dados:
 
 - `data/`: Aqui ficam suas bases de dados finais.
 - `data-raw/`: Aqui ficam seus scripts de arrumação e bases de dados intermediárias (70% do seu trabalho)
 
 --
 
-### Comunicação:
+#### Comunicação:
 
 - `docs/`: Sites, relatórios, dashboards estáticos.
 - `vignettes/`: Documentação do pacote.
@@ -426,7 +431,7 @@ class: center, middle, inverse
 
 # Git e Github
 
-Seguiremos o excelente livro [Happy Git with R](https://happygitwithr.com/), feito pela Jenny Bryan. Se tiver dúvidas, pode seguir por lá.
+.pull-left[
 
 O que veremos
 
@@ -442,9 +447,19 @@ Requisitos (Aula Zero)
 - Git instalado na sua máquina
 - RStudio instalado
 
+]
+
 --
 
-**Se você ainda não tiver isso, faça agora. Se tiver dificuldades, chame o monitor.**
+.pull-right[
+
+**Se você ainda não tiver as coisas instaladas, faça agora. Se tiver dificuldades, chame o monitor.**
+
+Seguiremos o excelente livro [Happy Git with R](https://happygitwithr.com/), feito pela Jenny Bryan. Se tiver dúvidas, pode seguir por lá.
+
+]
+
+
 
 ---
 
@@ -457,7 +472,7 @@ Requisitos (Aula Zero)
 - Git é um **sistema de versionamento**.
 - Foi criado em 2005 por Linus Torvalds, autor do sistema Linux.
 - É capaz de guardar o histórico de alterações de todos os arquivos dentro de uma pasta, que chamamos de repositório.
-- Funciona como o "*Track changes*" do word, mas muito melhor e mais organizado.
+- Funciona como o "*Track changes*" do word, mas muito melhor.
 - Torna-se importante à medida que seu trabalho é __colaborativo__.
 
 
@@ -472,8 +487,8 @@ Requisitos (Aula Zero)
 
 
 - GitHub é um site onde você coloca e compartilha repositórios Git.
-- É utilizado por milhões de pessoas para desenvolver projetos de código aberto ou fechado.
-- Muito útil para colaborar com outros programadores em projetos de ciência de dados.
+- Utilizado por milhões de pessoas em projetos de código aberto ou fechado.
+- Útil para colaborar com outros programadores em projetos de ciência de dados.
 - Forma segura de guardar os códigos que você desenvolve.
 - Existem alternativas, como [GitLab](https://about.gitlab.com/) e [BitBucket](https://bitbucket.org/product).
 
@@ -490,7 +505,7 @@ Requisitos (Aula Zero)
 
 --
 
-### Vantagem: com o RStudio é super fácil de fazer as tarefas comuns.
+### Vantagem: o RStudio é facilita MUITO a nossa vida.
 
 ---
 
@@ -520,7 +535,7 @@ Requisitos (Aula Zero)
 
 # Fluxo de trabalho
 
-&lt;img src="img/fluxo_github_rstudio.png" width="1567" style="display: block; margin: auto;" /&gt;
+&lt;img src="img/fluxo_github_rstudio.png" width="70%" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -556,7 +571,7 @@ apareceu) você adiciona controle de versão
 
 ---
 
-# Passo 2½: Configure seu nome de usuário
+# Passo 2½: Configure seu usuário
 
 Configure seu usuário do Git:
 
@@ -602,7 +617,7 @@ use_github()
 
 # Passo 4: Stage &amp; Commit
 
-&lt;img src="img/passo_3_commit_1.gif" width="80%" style="display: block; margin: auto;" /&gt;
+&lt;img src="img/passo_3_commit_1.gif" width="60%" style="display: block; margin: auto;" /&gt;
 
 __Observação__: O ato de clicar no item é o passo de Stage.
 
@@ -610,13 +625,13 @@ __Observação__: O ato de clicar no item é o passo de Stage.
 
 # Passo 5: Push
 
-&lt;img src="img/passo_4_push.gif" width="90%" style="display: block; margin: auto;" /&gt;
+&lt;img src="img/passo_4_push.gif" width="60%" style="display: block; margin: auto;" /&gt;
 
 ---
 
 # Passo Extra: Pull
 
-&lt;img src="img/passo_5_pull.gif" width="90%" style="display: block; margin: auto;" /&gt;
+&lt;img src="img/passo_5_pull.gif" width="60%" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -699,6 +714,7 @@ class: inverse, middle
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
 <script>var slideshow = remark.create({
+"ratio": "16:9",
 "highlightStyle": "github",
 "highlightLines": true,
 "countIncrementalSlides": false

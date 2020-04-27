@@ -6,8 +6,9 @@ date: "`r stringr::str_to_title(format(Sys.Date(), '%B, %Y'))`"
 output:
   xaringan::moon_reader:
     lib_dir: libs
-    css: ["default", "default-fonts", "css/custom-intro.css"]
+    css: ["default", "default-fonts", "css/custom-intro.css", "css/xaringan-themer.css"]
     nature:
+      ratio: '16:9'
       highlightStyle: github
       highlightLines: true
       countIncrementalSlides: false
@@ -16,7 +17,7 @@ output:
 
 # Sobre a Curso-R
 
-```{r, echo=FALSE, fig.align='center'}
+```{r, echo=FALSE, fig.align='center', out.width="70%"}
 knitr::include_graphics("img/professores.png")
 ```
 
@@ -32,7 +33,7 @@ knitr::include_graphics("img/linha_do_tempo.png")
 
 # Nossos cursos
 
-```{r, echo=FALSE, fig.align='center'}
+```{r, echo=FALSE, fig.align='center', out.width="80%"}
 knitr::include_graphics("img/cursos.png")
 ```
 
@@ -252,26 +253,30 @@ knitr::include_graphics("img/pacote.gif")
 
 - [Zen do R](https://curso-r.github.io/zen-do-r/), livro em desenvolvimento pela Curso-R.
 
+--
+
+- [Apresentação da Bea Milz](https://beatrizmilz.github.io/RLadies-Git-RStudio-2019).
+
 
 ---
 
 # Estrutura básica de um pacote
 
-### Essenciais:
+#### Essenciais:
 
 - `DESCRIPTION`: É o arquivo que define o nome do seu pacote
 - `R/`: Aqui ficam suas funções desenvolvidas em R.
 
 --
 
-### Dados:
+#### Dados:
 
 - `data/`: Aqui ficam suas bases de dados finais.
 - `data-raw/`: Aqui ficam seus scripts de arrumação e bases de dados intermediárias (70% do seu trabalho)
 
 --
 
-### Comunicação:
+#### Comunicação:
 
 - `docs/`: Sites, relatórios, dashboards estáticos.
 - `vignettes/`: Documentação do pacote.
@@ -436,7 +441,7 @@ class: center, middle, inverse
 
 # Git e Github
 
-Seguiremos o excelente livro [Happy Git with R](https://happygitwithr.com/), feito pela Jenny Bryan. Se tiver dúvidas, pode seguir por lá.
+.pull-left[
 
 O que veremos
 
@@ -452,9 +457,19 @@ Requisitos (Aula Zero)
 - Git instalado na sua máquina
 - RStudio instalado
 
+]
+
 --
 
-**Se você ainda não tiver isso, faça agora. Se tiver dificuldades, chame o monitor.**
+.pull-right[
+
+**Se você ainda não tiver as coisas instaladas, faça agora. Se tiver dificuldades, chame o monitor.**
+
+Seguiremos o excelente livro [Happy Git with R](https://happygitwithr.com/), feito pela Jenny Bryan. Se tiver dúvidas, pode seguir por lá.
+
+]
+
+
 
 ---
 
@@ -469,7 +484,7 @@ knitr::include_graphics("img/git.png")
 - Git é um **sistema de versionamento**.
 - Foi criado em 2005 por Linus Torvalds, autor do sistema Linux.
 - É capaz de guardar o histórico de alterações de todos os arquivos dentro de uma pasta, que chamamos de repositório.
-- Funciona como o "*Track changes*" do word, mas muito melhor e mais organizado.
+- Funciona como o "*Track changes*" do word, mas muito melhor.
 - Torna-se importante à medida que seu trabalho é __colaborativo__.
 
 
@@ -486,8 +501,8 @@ knitr::include_graphics("img/github.png")
 
 
 - GitHub é um site onde você coloca e compartilha repositórios Git.
-- É utilizado por milhões de pessoas para desenvolver projetos de código aberto ou fechado.
-- Muito útil para colaborar com outros programadores em projetos de ciência de dados.
+- Utilizado por milhões de pessoas em projetos de código aberto ou fechado.
+- Útil para colaborar com outros programadores em projetos de ciência de dados.
 - Forma segura de guardar os códigos que você desenvolve.
 - Existem alternativas, como [GitLab](https://about.gitlab.com/) e [BitBucket](https://bitbucket.org/product).
 
@@ -504,7 +519,7 @@ knitr::include_graphics("img/github.png")
 
 --
 
-### Vantagem: com o RStudio é super fácil de fazer as tarefas comuns.
+### Vantagem: o RStudio é facilita MUITO a nossa vida.
 
 ---
 
@@ -536,7 +551,7 @@ knitr::include_graphics("img/usethis.png")
 
 # Fluxo de trabalho
 
-```{r echo=FALSE, fig.align='center'}
+```{r echo=FALSE, fig.align='center', out.width="70%"}
 knitr::include_graphics("img/fluxo_github_rstudio.png")
 ```
 
@@ -572,7 +587,7 @@ apareceu) você adiciona controle de versão
 
 ---
 
-# Passo 2½: Configure seu nome de usuário
+# Passo 2½: Configure seu usuário
 
 Configure seu usuário do Git:
 
@@ -616,7 +631,7 @@ use_github()
 
 # Passo 4: Stage & Commit
 
-```{r echo=FALSE, out.width="80%", fig.align='center'}
+```{r echo=FALSE, out.width="60%", fig.align='center'}
 knitr::include_graphics("img/passo_3_commit_1.gif")
 ```
 
@@ -626,7 +641,7 @@ __Observação__: O ato de clicar no item é o passo de Stage.
 
 # Passo 5: Push
 
-```{r, echo=FALSE, out.width="90%", fig.align='center'}
+```{r, echo=FALSE, out.width="60%", fig.align='center'}
 knitr::include_graphics("img/passo_4_push.gif")
 ```
 
@@ -634,7 +649,7 @@ knitr::include_graphics("img/passo_4_push.gif")
 
 # Passo Extra: Pull
 
-```{r, echo=FALSE, out.width="90%", fig.align='center'}
+```{r, echo=FALSE, out.width="60%", fig.align='center'}
 knitr::include_graphics("img/passo_5_pull.gif")
 ```
 
