@@ -385,14 +385,14 @@ knitr::include_graphics("img/gato.gif")
 
 ---
 
-# Exercício 01: Criando seu primeiro pacote
+# Exercício 01: Seu primeiro pacote
 
 1. Utilize `usethis::create_package()` para criar seu primeiro pacote.
 2. Crie uma função chamada `colar`, que recebe os parâmetros `x` e `y` e retorna eles colados, com um espaço de separação. 
 3. Documente a função e adicione `@export`.
 4. Rode `devtools::load_all()`
 5. Rode `?colar`
-6. Rode com seu nome: `colar("Paulo", "Seldon")`
+6. Rode com seu nome: `colar("Jane", "Doe")`
 7. Tire um print screen de seu RStudio, mostrando i) o código que define a função, ii) o Help da função `colar` e iii) o resultado da operação `colar()` com o seu nome.
 8. Submeta a imagem no Google Classroom.
 
