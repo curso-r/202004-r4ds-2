@@ -59,7 +59,7 @@ dados_empilhados %>%
 
 # Exercício:
 
-# 1. Vá até a página https://dados.gov.br e pesquise pela base do SINESP.
+# 1. Vá até a página http://dados.gov.br e pesquise pela base do SINESP.
 
 # 2. Baixe a base de MUNICÍPIOS do SINESP, como vimos, salvando no local apropriado.
 
