@@ -352,6 +352,10 @@ knitr::include_graphics("img/gato.gif")
 
 --
 
+- `devtools::document()`: prepara as suas funções documentadas para fazer funcionar o help das funções.
+
+--
+
 - `devtools::install()`: instala o pacote que você criou. Utilizar somente quando seu pacote estiver pronto.
 
 ---
@@ -390,7 +394,7 @@ knitr::include_graphics("img/gato.gif")
 1. Utilize `usethis::create_package()` para criar seu primeiro pacote.
 2. Crie uma função chamada `colar`, que recebe os parâmetros `x` e `y` e retorna eles colados, com um espaço de separação. 
 3. Documente a função e adicione `@export`.
-4. Rode `devtools::load_all()`
+4. Rode `devtools::document()` e `devtools::load_all()`
 5. Rode `?colar`
 6. Rode com seu nome: `colar("Jane", "Doe")`
 7. Tire um print screen de seu RStudio, mostrando i) o código que define a função, ii) o Help da função `colar` e iii) o resultado da operação `colar()` com o seu nome.
