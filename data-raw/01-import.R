@@ -9,7 +9,7 @@ path <- "data-raw/xlsx/indicadoressegurancapublicamunicdez19.xlsx"
 da_ac <- read_excel(path)
 
 # limpar os nomes
-da_limpo <- da %>%
+da_limpo <- da_ac %>%
   janitor::clean_names()
 
 # criar um diretório
