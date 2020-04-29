@@ -77,6 +77,8 @@ knitr::include_graphics("img/material_aula.png")
 - Abra o projeto (arquivo `.Rproj`) no RStudio
 
 ---
+class: center
+
 
 # Exercícios de hoje
 
@@ -85,11 +87,9 @@ knitr::include_graphics("img/material_aula.png")
 
 ### Importação com `readr::`, `readxl::`
 
-- Base do SINESP
+<br/>
 
 ### Revisão dplyr: pipe e 5 verbos
-
-- Base do SINESP
 
 ]
 
@@ -99,14 +99,23 @@ knitr::include_graphics("img/material_aula.png")
 
 ### Banco de dados: `dplyr::` collect, postgres
 
-- Base de dados da RFB
+<br/>
 
 ### Pivotagem: `tidyr::`
 
-- ?
-
 ]
 
+---
+
+# Base de dados
+
+Base do SINESP: Sistema Nacional de Informações de Segurança Pública
+
+- `município`
+- `sigla_uf`
+- `regiao`
+- `mes_ano`
+- `vitima`
 
 ---
 
@@ -122,10 +131,7 @@ knitr::include_graphics("img/material_aula.png")
 
 ## ↪️ `da_` para bases de dados
 
----
-class: inverse, middle, center
-
-# Importação
+<!-- Parte 1---------------------------------------------------------------- -->
 
 ---
 
@@ -136,11 +142,90 @@ knitr::include_graphics("img/ciclo-ciencia-de-dados.png")
 ```
 
 ---
+## Importação
+
+.pull-left[
+
+<br>
+- Arquivos de texto
+
+- Arquivos do excel
+
+- Arquivos de outros softwares (SAS, SPSS)
+
+- Conexão com banco de dados
+]
+
+.pull-right[
+<br>
+```{r, out.width="100%", fig.align='center'}
+knitr::include_graphics("img/arte_janitor.png")
+```
+
+]
+
+---
+## Manipulação
+
+.pull-left[
+<br>
+- Selecionar colunas
+
+- Filtrar linhas
+
+- Criar ou modificar colunas
+
+- Agrupar e sumarizar
+
+- Juntar tabelas
+]
+
+.pull-right[
+
+```{r, out.width="100%"}
+knitr::include_graphics("img/arte_dplyr.png")
+```
+
+]
+
+---
+## Visualização
+
+```{r, out.width="60%", fig.align='center'}
+knitr::include_graphics("img/arte_ggplot2.png")
+```
+
+---
+## Comunicação
+
+- Relatórios automatizados
+- Dashboards estáticos
+
+```{r, out.width="60%", fig.align='center'}
+knitr::include_graphics("img/arte_rmarkdown.png")
+```
+
+---
 
 ## O ciclo da ciência de dados com o R
 
 ```{r, out.width="80%"}
 knitr::include_graphics("img/ciclo-ciencia-de-dados-pacotes.png")
+```
+
+---
+class: inverse, middle, center
+
+# Importação
+
+---
+
+# O que é importação
+
+### Carregar uma base de dados numa `tibble` dentro do R.
+
+```{r, out.width="80%"}
+knitr::include_graphics("img/importacao.png")
 ```
 
 ---
@@ -190,19 +275,19 @@ knitr::include_graphics("img/ciclo-ciencia-de-dados-pacotes.png")
 
 # Pacotes de importação de dados
 
-- Arquivos de texto: `readr`, `data.table::fread()`, `vroom::vroom()`
+- Arquivos de texto: `{readr}`, `data.table::fread()`, `vroom::vroom()`
 
 --
 
-- Arquivos estruturados, como `xlsx` e `json`: `readxl`, `jsonlite`
+- Arquivos estruturados, como `xlsx` e `json`: `{readxl}`, `{jsonlite}`
 
 --
 
-- Banco de dados: `DBI`, `odbc` e pacotes específicos
+- Banco de dados: `{DBI}`, `{odbc}` e pacotes específicos
 
 --
 
-- HTML e XML: `xml2`
+- HTML e XML: `{xml2}`
 
 ---
 class: center
@@ -240,7 +325,7 @@ knitr::include_graphics("img/gato.gif")
 ```{r, echo=FALSE, out.width="100%"}
 knitr::include_graphics("img/vroom.png")
 ```
-^
+
 ]
 
 ---
@@ -291,15 +376,121 @@ readxl::read_excel("sinesp.xlsx")
     10 Tarauacá         AC         NORTE  2018-01-01 00:00:00      1
     # … with 248 more rows
 
-<!-- Parte 1---------------------------------------------------------------- -->
+---
+class: inverse, middle, center
+
+# Pausa
+
+<!-- Parte 2---------------------------------------------------------------- -->
 
 ---
 class: inverse, middle, center
 
-# Revisão dplyr
+# Revisão {dplyr}
 
-<!-- Parte 2---------------------------------------------------------------- -->
+---
+class: middle
 
+# Tidy data
+
+> "Happy families are all alike; every unhappy family is unhappy in its own way." –– Leo Tolstoy
+
+> "Tidy datasets are all alike, but every messy dataset is messy in its own way." –– Hadley Wickham
+
+
+---
+
+# O que é tidy data?
+
+É uma base que une os conceitos da estatística (amostra, variável) e da informática (linhas, colunas)
+
+### As observações estão nas linhas
+
+--
+
+### As variáveis estão nas colunas
+
+--
+
+### Os valores estão nas células
+
+---
+
+## Os 5 verbos do dplyr
+
+`filter()`: selecionar observações (linhas) da base de dados
+
+--
+
+`arrange()`: ordenar de acordo com alguma variável (coluna)
+
+--
+
+`select()`: selecionar variáveis (colunas)
+
+--
+
+`mutate()`: modificar/criar variáveis do banco de dados
+
+--
+
+`summarise()`: sumarizar/agregar variáveis de uma base de dados
+
+---
+
+## 3 regras
+
+* o primeiro argumento é sempre uma `tibble()`
+* os outros argumentos descrevem o que você quer fazer
+* todos os verbos retornam sempre um `tibble()`
+
+Essas três regras fazem o uso do pipe (`%>%`) ser muito intuitivo.
+
+OBS: Para quem não lembra do `%>%`:
+
+```{r eval=FALSE, echo=TRUE}
+# equivalente
+funcao(param_a, param_b)
+objeto %>% funcao(param_b)
+```
+
+
+---
+class: center
+
+# Vamos ao R!
+
+```{r echo=FALSE, fig.align='center', out.width="80%"}
+knitr::include_graphics("img/gato.gif")
+```
+
+---
+
+# select()
+
+Outras funções úteis de seleção
+
+* `starts_with("abc")`: seleciona nomes que começam com "abc"
+
+* `ends_with("xyz")`: seleciona nomes que terminam com "xyz"
+
+* `contains("ijk")`: seleciona nomes que contêm "ijk"
+
+* `matches("(.)\\1")`: seleciona nomes usando Expressões Regulares
+
+* `num_range("x", 1:3)`: seleciona x1, x2 e x3
+
+
+---
+class: center
+
+# Vamos ao R!
+
+```{r echo=FALSE, fig.align='center', out.width="80%"}
+knitr::include_graphics("img/gato.gif")
+```
+
+<!-- Parte 3---------------------------------------------------------------- -->
 
 ---
 class: inverse, middle, center
@@ -307,14 +498,112 @@ class: inverse, middle, center
 # Bancos de dados
 
 
-<!-- Parte 3---------------------------------------------------------------- -->
+---
+
+# Bancos de dados e R
+
+No passado, a conexão com bancos de dados eram complicadas. Mas hoje em dia, graças ao `{tidyverse}`, tudo está facilitado. 
+
+Basicamente, temos dois componentes para bancos de dados:
+
+- __Componente de conexão/interação__: Cuida da conexão com a base de dados e das operações principais, como leitura, escrita e aplicação de queries SQL. Coordenada pelo pacote `{DBI}` e implementada internamente por diversos pacotes, um para cada tecnologia de banco de dados, como `{odbc}`, `{RPostgres}`, entre outros.
+
+--
+
+- __Componente de tradução__: Traduz operações feitas com o `{dplyr}` em queries do SQL, para que os seus códigos rodem no servidor de banco de dados. Coordenado pelo `{dbplyr}`.
+
+---
+
+# Referência principal
+
+## [db.rstudio.com](https://db.rstudio.com)
+
+- Contém tutoriais para praticamente qualquer banco de dados.
+- Informações completas sobre todos os pacotes.
+- A partir desse site, você pode pesquisar pelos pacotes específicos.
+
+---
+class: center
+
+# Vamos ao R!
+
+```{r echo=FALSE, fig.align='center', out.width="80%"}
+knitr::include_graphics("img/gato.gif")
+```
+
+<!-- Parte 4---------------------------------------------------------------- -->
 
 ---
 class: inverse, middle, center
 
 # Pivotagem
 
-<!-- Parte 4---------------------------------------------------------------- -->
+---
+
+# pivot_wider()
+
+```{r}
+knitr::include_graphics("img/wider.png")
+```
+
+(retirado do livro [r4ds](https://r4ds.had.co.nz))
+
+---
+
+# pivot_longer()
+
+```{r}
+knitr::include_graphics("img/longer.png")
+```
+
+(retirado do livro [r4ds](https://r4ds.had.co.nz))
+
+---
+class: center
+
+# Vamos ao R!
+
+```{r echo=FALSE, fig.align='center', out.width="80%"}
+knitr::include_graphics("img/gato.gif")
+```
+
+<!-- Finalizando ----------------------------------------------------------- -->
+
+---
+class: inverse, middle, center
+
+# Resumo
+
+---
+
+# Resumo
+
+Hoje vimos alguns conceitos de
+
+- Importação de dados com `{readxl}` e `{readr}`, e uma palhinha do `{purrr}`
+- Os cinco verbos do `{dplyr}`
+- Conexão com banco de dados e a função `collect()`
+- Pivotagem com as funções `pivot_wider()` e `pivot_longer()`
+
+---
+
+# Algumas referências
+
+- [Material de tidyverse da UFPR](http://www.leg.ufpr.br/~walmes/ensino/dsbd-linprog/slides/02-r-tidyverse.html#1)
+- [Material da Curso-R](https://www.curso-r.com/material/)
+- [Apresentação Garret Grolemund](https://github.com/rstudio/webinars/blob/master/05-Data-Wrangling-with-R-and-RStudio/wrangling-webinar.pdf)
+
+---
+
+# Próxima aula
+
+### `dplyr::` joins
+
+### `tidyr::` nest/unnest
+
+### `tidyr::` separate/unite
+
+### `dplyr::` curly-curly
 
 ---
 class: inverse, middle
