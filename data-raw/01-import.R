@@ -23,11 +23,8 @@ read_csv("data-raw/csv/sinesp_ac.csv")
 # o objeto cols()
 
 colunas <- cols(
-  Município = col_character(),
-  `Sigla UF` = col_character(),
-  Região = col_character(),
-  `Mês/Ano` = col_character(),
-  Vítima = col_double()
+  Vítima = col_double(),
+  .default = col_character()
 )
 
 read_csv("data-raw/csv/sinesp_ac.csv", col_types = colunas)
@@ -78,8 +75,15 @@ excel_sheets(path)
 # 3. Leia todas as bases numa lista.
 # Dica: utilize readxl::excel_sheets() e purrr::map()
 
+lista <- path %>%
+  excel_sheets() %>%
+  map(read_excel, path = path, col_types = "text")
+
 # 4. Empilhe a base.
 # Dica: utilize a função `dplyr::bind_rows()`.
+
+bind_rows(lista) %>%
+  janitor::clean_names()
 
 # 5. [EXTRA] Salve cada aba da planilha (de cada estado) em um arquivo CSV diferente.
 # Dica: primeiro crie um vetor com os caminhos desses arquivos, crie a pasta csv
