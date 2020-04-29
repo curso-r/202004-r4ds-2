@@ -61,7 +61,7 @@ da_empilhado <- bind_rows(lista) %>%
 
 da_empilhado %>%
   group_by(sigla_uf) %>%
-  summarise(soma = sum(vitima))
+  summarise(soma = sum(as.numeric(vitima)))
 
 excel_sheets(path)
 
