@@ -44,31 +44,46 @@ da <- read_excel(path, col_types = "text")
 da_ba <- read_excel(path, sheet = 5)
 da_sp <- read_excel(path, sheet = "São Paulo")
 
+# solta um warning
+da_ms <- read_xlsx(path, 12)
+
+# nao solta um warning
+da_ms <- read_xlsx(path, 12, col_types = "text")
+
 # ler várias abas
 # Veremos mais de purrr nas próximas aulas!
-lista <- purrr::map(1:3, ~read_excel(path, .x))
+lista <- map(1:3, ~read_excel(path, .x, col_types = "text"))
 
 dados_empilhados <- bind_rows(lista) %>%
   janitor::clean_names()
 
 dados_empilhados %>%
   group_by(sigla_uf) %>%
-  summarise(s = sum(vitima))
+  summarise(soma = sum(vitima))
+
+excel_sheets(path)
 
 # you ---------------------------------------------------------------------
 
 # Exercício:
 
 # 1. Vá até a página https://dados.gov.br e pesquise pela base do SINESP.
+# Dica: http://dados.mj.gov.br/dataset/210b9ae2-21fc-4986-89c6-2006eb4db247/resource/03af7ce2-174e-4ebd-b085-384503cfb40f/download/indicadoressegurancapublicamunicdez19.xlsx
 
 # 2. Baixe a base de MUNICÍPIOS do SINESP, como vimos, salvando no local apropriado.
+# Dica: criar uma pasta xlsx dentro de data-raw/
 
 # 3. Leia todas as bases numa lista.
 # Dica: utilize readxl::excel_sheets() e purrr::map()
 
-# 4. Empilhe a base. Dica: utilize a função `dplyr::bind_rows()`.
+# 4. Empilhe a base.
+# Dica: utilize a função `dplyr::bind_rows()`.
 
-# 5. [EXTRA] Salve cada aba da planilha (de cada estado) em um arquivo
-# CSV diferente. Dica: primeiro crie um vetor com os caminhos desses arquivos,
+# 5. [EXTRA] Salve cada aba da planilha (de cada estado) em um arquivo CSV diferente.
+# Dica: primeiro crie um vetor com os caminhos desses arquivos, crie a pasta csv
 # e depois use purrr::map2(lista, arquivos, write_csv)
+
+
+
+
 
