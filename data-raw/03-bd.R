@@ -18,11 +18,11 @@ da_sinesp_bd <- tbl(con, "tab_sinesp")
 
 # Trabalhe como se a base estivesse na sua máquina
 
-da_resultado_remoto <- da_sinesp %>%
+da_resultado_remoto <- da_sinesp_bd %>%
   mutate(vitima = as.numeric(vitima)) %>%
   filter(sigla_uf == "AC") %>%
   group_by(municipio) %>%
-  summarise(soma = sum(vitima))
+  summarise(soma = sum(vitima, na.rm = TRUE))
 
 # Observe o [??] no número de linhas!
 
@@ -32,7 +32,7 @@ da_resultado_remoto %>%
 
 # use collect() para processar e obter os resultados
 
-da_resultado_local <- resultado_remoto %>%
+da_resultado_local <- da_resultado_remoto %>%
   collect()
 
 # É possível rodar uma query SQL, se você quiser
