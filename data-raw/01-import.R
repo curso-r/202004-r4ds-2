@@ -89,7 +89,9 @@ bind_rows(lista) %>%
 # Dica: primeiro crie um vetor com os caminhos desses arquivos, crie a pasta csv
 # e depois use purrr::map2(lista, arquivos, write_csv)
 
+arquivos <- paste0("data-raw/csv/", excel_sheets(path), ".csv")
 
+purrr::map2(lista, arquivos, write_csv)
 
 
 
