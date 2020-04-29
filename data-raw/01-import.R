@@ -35,10 +35,10 @@ read_csv("data-raw/csv/sinesp_ac.csv", col_types = colunas)
 # no excel é diferente!
 # ler tudo como texto:
 rep("text", 5)
-da <- read_excel(path, col_types = rep("text", 5))
+da_sinesp_txt <- read_excel(path, col_types = rep("text", 5))
 
 # atalho:
-da <- read_excel(path, col_types = "text")
+da_sinesp_txt <- read_excel(path, col_types = "text")
 
 # ler outras abas:
 da_ba <- read_excel(path, sheet = 5)
@@ -52,12 +52,14 @@ da_ms <- read_xlsx(path, 12, col_types = "text")
 
 # ler várias abas
 # Veremos mais de purrr nas próximas aulas!
+lista <- map(1:3, read_excel, path = path, col_types = "text")
+# -> forma altenativa
 lista <- map(1:3, ~read_excel(path, .x, col_types = "text"))
 
-dados_empilhados <- bind_rows(lista) %>%
+da_empilhado <- bind_rows(lista) %>%
   janitor::clean_names()
 
-dados_empilhados %>%
+da_empilhado %>%
   group_by(sigla_uf) %>%
   summarise(soma = sum(vitima))
 
