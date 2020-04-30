@@ -20,6 +20,9 @@ da_sinesp %>%
 da_sinesp %>%
   filter(regiao %in% c("NORTE", "SUL"))
 
+da_sinesp %>%
+  filter(regiao == "NORTE", sigla_uf == "AC")
+
 # select ---
 da_sinesp %>%
   select(1)
@@ -31,13 +34,13 @@ da_sinesp %>%
   select(municipio, mes_ano)
 
 da_sinesp %>%
-  select(starts_with("m"))
+  select(ends_with("o"))
 
 da_sinesp %>%
   select(-mes_ano)
 
 # mutate ---
-da_sinesp %>%
+da_sinesp_com_vitima_numerica <- da_sinesp %>%
   mutate(vitima = as.numeric(vitima))
 
 da_sinesp %>%
@@ -61,11 +64,17 @@ da_sinesp %>%
 # categorizando variavel
 da_sinesp %>%
   mutate(vitima = as.numeric(vitima),
-         vitima_cat = cut(vitima, c(0, 10, 100, 200)))
+         vitima_cat = cut(vitima, c(0, 10, 100, 200))) %>%
+  filter(vitima == 0)
+
+
+da_sinesp %>%
+  filter(vitima == 0)
 
 da_sinesp %>%
   mutate(vitima = as.numeric(vitima),
-         vitima_cat = cut(vitima, c(0, 10, 100, 200), include.lowest = TRUE))
+         vitima_cat = cut(vitima, c(0, 10, 100, 200), include.lowest = TRUE)) %>%
+  filter(vitima == 0)
 
 # arrange ---
 
@@ -85,7 +94,7 @@ da_sinesp %>%
 # decrescente
 da_sinesp %>%
   mutate(vitima = as.numeric(vitima)) %>%
-  arrange(desc(vitima))
+  arrange(sigla_uf, desc(vitima))
 
 # group_by() + summarise()
 
@@ -109,6 +118,20 @@ da_sumario <- da_sinesp %>%
 # mutate(), group_by(), summarise(sum())
 # Extra: para remover os grupos, use ungroup()
 
+da_vitimas_por_regiao <- da_sinesp %>%
+  mutate(vitima = as.numeric(vitima)) %>%
+  group_by(regiao, sigla_uf) %>%
+  summarise(soma = sum(vitima)) %>%
+  mutate(prop = soma / sum(soma))
+
+da_vitimas_por_regiao <- da_sinesp %>%
+  mutate(vitima = as.numeric(vitima)) %>%
+  group_by(regiao, sigla_uf) %>%
+  summarise(soma = sum(vitima)) %>%
+  mutate(prop = soma / sum(soma)) %>%
+  ungroup()
+
+
 
 # you ---------------------------------------------------------------------
 
@@ -116,17 +139,17 @@ da_sumario <- da_sinesp %>%
 
 da_resultado <- da_sinesp %>%
   # a. tire a coluna mes_ano com select
-  _________ %>%
+  select(-mes_ano) %>%
   # b. filtre apenas para região norte
-  _________ %>%
+  filter(regiao == "NORTE") %>%
   # c. usando mutate, deixe a coluna vítima como numérica
-  _________ %>%
+  mutate(vitima = as.numeric(vitima)) %>%
   # d. agrupe por estado
-  _________ %>%
+  group_by(sigla_uf) %>%
   # e. sumarise, mostrando o número de observações e a média de vítimas
-  _________ %>%
+  summarise(n = n(), media = mean(vitima)) %>%
   # f. ordene em ordem decrescente pela média de vítimas
-  _________
+  arrange(desc(media))
 
 # EXTRA: faça um gráfico de barras com ggplot() e geom_col()
 # com estado no eixo x, média de vítimas no eixo y e Região nas facets.
