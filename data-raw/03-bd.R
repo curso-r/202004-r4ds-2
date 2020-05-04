@@ -9,7 +9,7 @@ senha_bd <- Sys.getenv("SENHA_BD")
 # Conexão com o banco de dados
 con <- dbConnect(Postgres(),
                  dbname = "sinesp",
-                 host = "34.68.9.208",
+                 host = "35.223.53.194",
                  port = 5432,
                  user = "admin",
                  password = senha_bd)
