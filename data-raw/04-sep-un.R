@@ -59,14 +59,20 @@ da_sinesp %>%
 
 da_resultado <- da_sinesp %>%
 # 1. una as colunas região e vítima, com separador "_"
-  __________ %>%
+  unite(unido, regiao, vitima, sep = "_") %>%
 # 2. Separe as colunas para voltar à original.
-  __________
+  separate(unido, c("regiao", "vitima"), sep = "_")
 
 # Exercício 02
 
 # Refaça 1 e 2, mas no separate(), adicione o argumento convert = TRUE
 # O que ocorreu com a coluna vitima?
+
+da_sinesp %>%
+  # 1. una as colunas região e vítima, com separador "_"
+  unite(unido, regiao, vitima, sep = "_") %>%
+  # 2. Separe as colunas para voltar à original.
+  separate(unido, c("regiao", "vitima"), sep = "_", convert = TRUE)
 
 # EXTRA:
 
@@ -75,7 +81,20 @@ da_resultado <- da_sinesp %>%
 # 3. agora tente separar. Vai dar um warning! O problema, agora,
 #    é que CENTRO-OESTE tem um "-" também. No entanto, se dermos
 #    extra = "merge", o resultado será "CENTRO" e "OESTE-1"
-#
+
+# solucao gambiarra
+da_sinesp %>%
+  filter(regiao == "CENTRO-OESTE") %>%
+  unite(uniao, regiao, vitima, sep = "-") %>%
+  separate(uniao, c("regiao", "aux", "vitima"), sep = "-") %>%
+  unite(regiao, regiao, aux, sep = "-")
+
+# solucao elegante
+da_sinesp %>%
+  filter(regiao == "CENTRO-OESTE") %>%
+  unite(uniao, regiao, vitima, sep = "-") %>%
+  separate(uniao, c("regiao", "vitima"), sep = "-(?=[0-9])")
+
 # Desafio: como você faria para, a partir do resultado de (2),
 # voltar à base original?
 #
