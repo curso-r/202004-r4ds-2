@@ -1,6 +1,6 @@
 ---
 title: "R para Ciência de Dados"
-subtitle: "Parte II - Aula 3"
+subtitle: "Parte II - Aula 4"
 author: "<img src = 'https://d33wubrfki0l68.cloudfront.net/9b0699f18268059bdd2e5c21538a29eade7cbd2b/67e5c/img/logo/cursor1-5.png' width = '20%'>"
 date: "`r stringr::str_to_title(format(Sys.Date(), '%B, %Y'))`"
 output:
@@ -77,18 +77,18 @@ knitr::include_graphics("img/material_aula.png")
 ---
 # Base de dados
 
-Base do SINESP: Sistema Nacional de Informações de Segurança Pública (já
-disponível no material do curso)
+Base do estadual SINESP: Sistema Nacional de Informações de Segurança Pública
+(já disponível no material do curso)
 
-- `município`
+- `uf`
 
-- `sigla_uf`
+- `tipo_crime`
 
-- `regiao`
+- `ano`
 
-- `mes_ano`
+- `mes`
 
-- `vitima`
+- `ocorrencias`
 
 ---
 class: inverse, center, middle
