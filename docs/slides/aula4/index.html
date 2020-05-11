@@ -11,7 +11,7 @@
 class: center, middle, inverse, title-slide
 
 # R para Ciência de Dados
-## Parte II - Aula 3
+## Parte II - Aula 4
 ### <img src = 'https://d33wubrfki0l68.cloudfront.net/9b0699f18268059bdd2e5c21538a29eade7cbd2b/67e5c/img/logo/cursor1-5.png' width = '20%'>
 ### Maio, 2020
 
@@ -74,18 +74,18 @@ class: center, middle, inverse, title-slide
 ---
 # Base de dados
 
-Base do SINESP: Sistema Nacional de Informações de Segurança Pública (já
-disponível no material do curso)
+Base do estadual SINESP: Sistema Nacional de Informações de Segurança Pública
+(já disponível no material do curso)
 
-- `município`
+- `uf`
 
-- `sigla_uf`
+- `tipo_crime`
 
-- `regiao`
+- `ano`
 
-- `mes_ano`
+- `mes`
 
-- `vitima`
+- `ocorrencias`
 
 ---
 class: inverse, center, middle
@@ -273,7 +273,7 @@ now()
 ```
 
 ```
-#&gt; [1] "2020-05-06 04:26:31 -03"
+#&gt; [1] "2020-05-10 19:11:22 -03"
 ```
 
 ```r
@@ -281,7 +281,7 @@ as.numeric(now())
 ```
 
 ```
-#&gt; [1] 1588749991
+#&gt; [1] 1589148683
 ```
 
 - O formato utilizado pelas linguagens de programação para data-horas se chama
@@ -337,7 +337,7 @@ today() + 2
 ```
 
 ```
-#&gt; [1] "2020-05-08"
+#&gt; [1] "2020-05-12"
 ```
 
 ```r
@@ -345,7 +345,7 @@ now() + days(5)
 ```
 
 ```
-#&gt; [1] "2020-05-11 04:26:31 -03"
+#&gt; [1] "2020-05-15 19:11:22 -03"
 ```
 
 ---
