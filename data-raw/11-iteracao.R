@@ -7,6 +7,7 @@ library(stringr)
 # US ----------------------------------------------------------------------
 
 # Iteração simples
+vec <- 1:10
 soma_dez <- function(x) x + 10
 map(vec, soma_dez)
 map_dbl(vec, soma_dez)
@@ -29,12 +30,26 @@ map_dbl(vec, soma_n, n = 3)
 # Fórmulas
 map(vec, ~3+.x)
 map_dbl(vec, ~3+.x)
-map_dbl(vec, ~runif(1, .x, .x+1))
+# exemplo <- function(x) {
+#   runif(1, x, x+1)
+# }
+vec %>%
+  map_dbl(~runif(1, .x, .x+1)) %>%
+  mean()
 
 # Mais de uma entrada
 strings <- c("oiii", "como vai", "tchau")
 padroes <- c("i+",   "(.o){2}",  "[au]+$")
 map2_chr(strings, padroes, str_extract)
+map2_chr(strings, padroes, ~str_extract(.x, .y))
+
+# _dfr
+mtcars1 <- mtcars
+mtcars2 <- mtcars
+mtcars3 <- mtcars
+list(mtcars1, mtcars2, mtcars3) %>%
+  map(rownames_to_column, "car") %>%
+  map_dfr(as_tibble)
 
 
 
