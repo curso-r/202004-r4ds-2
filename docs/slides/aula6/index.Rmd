@@ -172,6 +172,12 @@ knitr::include_graphics("img/gato.gif")
 ```
 
 ---
+
+# Slides
+
+https://curso-r.github.io/201911-dashboards/slides_shiny/slides_shiny.html
+
+---
 # Resumo
 
 - No curso, vimos diversas ferramentas que facilitam a vida da/o cientista de dados.
