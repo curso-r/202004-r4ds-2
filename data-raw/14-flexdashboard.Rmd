@@ -1,0 +1,180 @@
+---
+title: "Páginas, componentes e temas"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: columns
+    vertical_layout: fill
+    theme: default
+---
+
+```{r setup, include=FALSE}
+library(flexdashboard)
+library(tidyverse)
+library(readxl)
+library(janitor)
+
+# cuidado com o contexto do arquivo
+da_sinesp_uf <- readxl::read_xlsx("xlsx/indicadoressegurancapublicaufdez19.xlsx") %>% 
+  janitor::clean_names()
+
+path_muni <- "xlsx/indicadoressegurancapublicamunicdez19.xlsx"
+# Lê e empilha
+da_sinesp_muni <- path_muni %>%
+  excel_sheets() %>%
+  map_dfr(read_xlsx, path = path_muni, col_types = "text") %>%
+  clean_names()
+
+```
+
+SINESP
+=======================================================================
+
+Column {data-width=150}
+-----------------------------------------------------------------------
+
+### Número de linhas
+
+```{r}
+valueBox(nrow(da_sinesp_uf), icon = "fa-users", color = "success")
+```
+
+### Ocorrência média
+
+```{r}
+ocorrencias_medio <- round(mean(da_sinesp_uf$ocorrencias), 2)
+valueBox(ocorrencias_medio, icon = "fa-sum", color = "warning")
+```
+
+### Período
+
+```{r}
+periodo <- paste(range(da_sinesp_uf$ano), collapse = "-")
+valueBox(periodo, icon = "fa-clock", color = "primary")
+```
+
+### Ocorrências por 100 mil habitantes
+
+```{r}
+media_anual <- da_sinesp_uf %>% 
+  group_by(ano) %>% 
+  summarise(soma = sum(ocorrencias)) %>% 
+  summarise(media = mean(soma)) %>% 
+  pull(media)
+
+media_anual <- round(media_anual / 210000, 2)
+
+gauge(media_anual, min = 0, max = 5)
+```
+
+Column {.tabset}
+-----------------------------------------------------------------------
+
+### Por tipo de crime
+
+```{r, fig.width=4.5, fig.height=3.5}
+da_sinesp_uf %>% 
+  group_by(tipo_crime) %>% 
+  summarise(soma = sum(ocorrencias)) %>% 
+  mutate(tipo_crime = fct_reorder(tipo_crime, soma)) %>% 
+  ggplot(aes(x = soma, y = tipo_crime)) +
+  geom_col() +
+  scale_x_continuous(labels = scales::comma) +
+  theme_minimal(12)
+```
+
+### Por mês
+
+```{r}
+da_sinesp_uf %>% 
+  mutate(mes = as_factor(mes)) %>% 
+  group_by(mes) %>% 
+  summarise(soma = sum(ocorrencias)) %>% 
+  ggplot(aes(x = mes, y = soma)) +
+  geom_col() +
+  scale_y_continuous(labels = scales::comma) +
+  theme_minimal(12)
+```
+
+
+Exercícios
+=======================================================================
+
+Column
+-----------------------------------------------------------------------
+
+### Exercícios
+
+1. Experimente outros temas para o dashboard.
+
+2. Divida a segunda coluna da página em duas, com um gráfico em cada coluna. 
+
+3. [extra] Crie sumários e gráficos com o que você aprendeu no curso para a base `da_sinesp_muni`.
+
+Column
+-----------------------------------------------------------------------
+
+### Temas disponíveis
+
+Para trocar o tema do *dashboard*, basta utilizar um dos nomes abaixo na opção `theme:` do cabeçalho.
+
+- default
+- cosmo
+- bootstrap
+- cerulean
+- journal
+- flatly
+- readable
+- spacelab
+- united
+- lumen
+- paper
+- sandstone
+- simplex
+- yeti
+
+
+Municípios
+=======================================================================
+
+Coluna {data-width=150}
+-------------------------------------------------
+
+### Sumário 1
+
+```{r}
+valueBox(0)
+```
+
+### Sumário 2
+
+```{r}
+valueBox(0)
+```
+
+### Sumário 3
+
+```{r}
+valueBox(0)
+```
+
+### Sumário 4
+
+```{r}
+gauge(0, 0, 1)
+```
+
+
+Column {.tabset}
+-----------------------------------------------------------------------
+
+### Gráfico 1
+
+```{r}
+ggplot()
+```
+
+### Gráfico 2
+
+```{r}
+ggplot()
+```
