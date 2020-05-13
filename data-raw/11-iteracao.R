@@ -51,6 +51,10 @@ list(mtcars1, mtcars2, mtcars3) %>%
   map(rownames_to_column, "car") %>%
   map_dfr(as_tibble)
 
+# Walk
+map(vec, soma_dez)
+walk(vec, soma_dez) # Transparente
+
 
 
 # YOU ---------------------------------------------------------------------
@@ -69,6 +73,6 @@ arquivos <- da_sinesp %>%
   str_c("data-raw/xlsx/", ., ".csv")
 
 # Salve um CSV para cada sub-tabela de da_sinesp (use readr::write_csv())
-???
+map2(da_sinesp, arquivos, readr::write_csv)
 
 

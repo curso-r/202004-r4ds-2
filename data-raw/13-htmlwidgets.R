@@ -10,6 +10,7 @@ library(reactable)
 
 # Demonstração plot_ly()
 plot_ly(iris, x = ~Sepal.Length, y = ~Petal.Length, color = ~Species)
+plot_ly(iris, x = ~Sepal.Length, y = ~Petal.Length, color = ~Species, type = "scatter", mode = "markers")
 
 # Demonstração ggplotly()
 housing <- filter(txhousing, city %in% c("Dallas", "Austin"))
@@ -49,6 +50,8 @@ da_sinesp <- "data-raw/xlsx/indicadoressegurancapublicaufdez19.xlsx" %>%
 # Crie uma estética que reproduza o gráfico de horas de TV por religião, mas com
 # ocorrências por tipo de crime. Ordene os tipos de crime por ordem decrescente
 # de ocorrências.
-plot_ly(da_sinesp, ???)
+da_sinesp %>%
+  mutate(tipo_crime = fct_reorder(tipo_crime, ocorrencias, .desc = TRUE)) %>%
+  plot_ly(x = ~ocorrencias, y = ~tipo_crime, type = "scatter")
 
 
